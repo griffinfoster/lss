@@ -16,6 +16,8 @@ Requirements
 * PyEphem (rhodesmill.org/pyephem)  
 * pyrap (code.google.com/p/pyrap)  
 * Matplotlib/pylab w/ Basemap  
+* healpy (https://github.com/healpy/healpy)  
+* MeqTrees (1.2+) 
 * makems (Part of the MeqTrees repo)  
 
 Test Data
