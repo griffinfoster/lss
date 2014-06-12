@@ -21,17 +21,13 @@ for fid,fn in enumerate(acc_files):
     fnBase=fn.split('/')[-1]
     fnArr=fnBase.split('_')
     accSize=fnArr[3].split('x')
-    #nsb=int(accSize[0])
-    #nantpol=int(accSize[1])
-    nsb=1
-    nantpol=192
+    nsb=int(accSize[0])
+    nantpol=int(accSize[1])
     accComp=numpy.fromfile(fn,dtype='complex')
     print accComp.shape
-    accComp=accComp.reshape(1,192,192)
+    accComp=accComp.reshape(nsb,nantpol,nantpol)
     accSB=accComp[opts.subband,:,:]
     accSB=accSB.reshape(nantpol,nantpol,1)
-    accSB=accSB[::2,::2,:]
-    nantpol=96
     print accSB.shape,accComp.shape
     
     fTimeStruct=time.struct_time((int(fnArr[0][0:4]),int(fnArr[0][4:6]),int(fnArr[0][6:8]),int(fnArr[1][0:2]),int(fnArr[1][2:4]),int(fnArr[1][4:6]),0,0,0))
