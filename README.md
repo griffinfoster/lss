@@ -18,6 +18,11 @@ Requirements
 * Matplotlib/pylab w/ Basemap  
 * makems (Part of the MeqTrees repo)  
 
+Installation
+===
+
+Currently the package doesn't have a installation module, to use the software add the src directory to the $PYTHONPATH, e.g. add export PYTHONPATH=$PYTHONPATH:/home/[user]/sw/lss/src to your .bashrc file
+
 Test Data
 ===
 

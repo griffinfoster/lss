@@ -15,7 +15,7 @@ import struct
 import time
 
 """
-DFT Functions
+FT Functions
 """
 
 def phsCenterSrc(obs, t):
@@ -133,14 +133,15 @@ def fftImage(d,uvw,px,res,mask=False,conv='fast'):
     vflat=v.flatten()
     dflat=d.flatten()
 
-    umax=px[0]/4.3
-    vmax=px[1]/4.3
-    print umax
+    #umax=px[0]/4.3
+    #vmax=px[1]/4.3
+    umax=px[0]/5.
+    vmax=px[1]/5.
+    #print umax
     udelta=umax*2./px[0]
     vdelta=vmax*2./px[1]
     gridUV=numpy.mgrid[-1.*umax:umax:(2*umax/px[0]),-1.*vmax:vmax:(2*vmax/px[1])]
     gridVis=numpy.zeros((px[0],px[1]),dtype=complex)
-    conv='blah'
     if conv.startswith('fast'):
         for did,dd in enumerate(dflat):
             #simple, rectangular convolution function
@@ -152,6 +153,7 @@ def fftImage(d,uvw,px,res,mask=False,conv='fast'):
         #stopped here
 
     im=numpy.fft.fftshift(numpy.fft.fft2(gridVis))
+    im=numpy.rot90(numpy.fliplr(im))
     
     print time.time()-start_time
     if mask: return im,maskIm

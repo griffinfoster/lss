@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Perform a DFT on ACC data to form a Stokes dirty image
+Perform a FFT on ACC data to form a Stokes dirty image
 """
 
 import numpy
@@ -26,8 +26,8 @@ if __name__ == '__main__':
         help='Station RCU Mode, usually 3,5,6,7, default: 3(LBA High)')
     o.add_option('-s', '--subband', dest='subband', default='0',
         help='Select which subband to image, default:0')
-    o.add_option('-p', '--pixels', dest='pixels', default=32, type='int',
-        help='Width of image in pixels, default: 32')
+    o.add_option('-p', '--pixels', dest='pixels', default=64, type='int',
+        help='Width of image in pixels, default: 64')
     o.add_option('-C','--cal',dest='calfile',default=None,
         help='Apply a calibration soultion file to the data.')
     o.add_option('-S','--save',dest='savefig',action='store_true',
@@ -196,28 +196,35 @@ for fid,fn in enumerate(acc_files):
         #uvw plot
         #pylab.plot(uvw[:,:,0],uvw[:,:,1],'.')
         stokesAcc=numpy.array([xxAcc[:,:,fid,sid],xyAcc[:,:,fid,sid],yxAcc[:,:,fid,sid],yyAcc[:,:,fid,sid]])
-        stokesIm=lss.dftImage(stokesAcc,uvw,px,res,mask=False,weighting=False,stokes=True)
+        xxIm=lss.fftImage(stokesAcc[0],uvw,px,res,mask=False,conv='fast')
+        xyIm=lss.fftImage(stokesAcc[1],uvw,px,res,mask=False,conv='fast')
+        yxIm=lss.fftImage(stokesAcc[2],uvw,px,res,mask=False,conv='fast')
+        yyIm=lss.fftImage(stokesAcc[3],uvw,px,res,mask=False,conv='fast')
+        iIm=(xxIm+yyIm).real
+        qIm=(xxIm-yyIm).real
+        uIm=(xyIm+yxIm).real
+        vIm=(xyIm-yxIm).imag
 
         pylab.subplot(2,2,1)
-        pylab.imshow(stokesIm[:,:,0])
+        pylab.imshow(iIm)
         pylab.xlabel('Pixels (E-W)')
         pylab.ylabel('Pixels (N-S)')
         pylab.title('I')
         pylab.colorbar()
         pylab.subplot(2,2,2)
-        pylab.imshow(stokesIm[:,:,1])
+        pylab.imshow(qIm)
         pylab.xlabel('Pixels (E-W)')
         pylab.ylabel('Pixels (N-S)')
         pylab.title('Q')
         pylab.colorbar()
         pylab.subplot(2,2,3)
-        pylab.imshow(stokesIm[:,:,2])
+        pylab.imshow(uIm)
         pylab.xlabel('Pixels (E-W)')
         pylab.ylabel('Pixels (N-S)')
         pylab.title('U')
         pylab.colorbar()
         pylab.subplot(2,2,4)
-        pylab.imshow(stokesIm[:,:,3])
+        pylab.imshow(vIm)
         pylab.xlabel('Pixels (E-W)')
         pylab.ylabel('Pixels (N-S)')
         pylab.title('V')
