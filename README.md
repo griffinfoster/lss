@@ -1,9 +1,9 @@
 lss
 ===
 
-LOFAR Single Station Software 
+LOFAR Single Station Software AND More!
 
-Last Updated: 12.06.14 
+Last Updated: 6.07.14 
 
 Contact: griffin.foster@gmail.com  
 
@@ -19,6 +19,7 @@ Requirements
 * pyrap (code.google.com/p/pyrap)  
 * Matplotlib/pylab w/ Basemap  
 * makems (Part of the MeqTrees repo)  
+* pywcs 
 
 Installation
 ===
@@ -34,8 +35,8 @@ Test Data
 
 Example LBA and HBA correlation files is available at:  
 
-* LBA (RCU 3): http://www-astro.physics.ox.ac.uk/~FosterG/example/20120513_052251_acc_512x192x192.dat 
-* HBA (RCU 5): http://www-astro.physics.ox.ac.uk/~FosterG/example/20111205_162258_acc_512x192x192.dat 
+* LBA (RCU 3): https://zenodo.org/record/840405/files/20120513_052251_acc_512x192x192.dat
+* HBA (RCU 5): https://zenodo.org/record/840405/files/20111205_162258_acc_512x192x192.dat
 
 Script Examples
 ===
@@ -63,12 +64,6 @@ Add the following scripts:
 * convert XST/ACC files -> HDF5 container
 * convert SST files -> HDF5 container
 
-FFT Plotter:
-
-* add convultion functions
-* correct u,v -> l,m scaling for hemisphere imaging
-* add sqrt(1-l^2-m^2) weighting
-
 AABeamGen:
 
 * Generate antpos without AntennaArrays files
@@ -78,4 +73,9 @@ Installation and Setup:
 
 * remove hard-coded paths
 * make a proper python module
+
+Documentaion:
+
+* write plotting and calibration guide
+* write OSKAR beam generator guide
 
